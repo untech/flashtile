@@ -14,6 +14,7 @@ PIXEL_16 = 16
 //define structure for the tiles right here
 typedef struct{
 unsigned char* pixels;
+enum CDEPTH depth;
 //figure out how to hold palette values or something
 }FTile8;
  
