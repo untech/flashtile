@@ -1,13 +1,23 @@
 #ifndef FLASHTILE_H
 #define FLASHTILE_H
 
+enum CDEPTH{
+COLOR_8 = 8,
+COLOR_16 = 16
+};
+
+enum PXLSZ{
+PIXEL_8 = 8,
+PIXEL_16 = 16
+};
+
 //define structure for the tiles right here
 typedef struct{
-unsigned short int* tiles16;
+unsigned char* pixels;
 //figure out how to hold palette values or something
-}FTile16;
+}FTile8;
  
-FTile16* initFTile16(void);
+FTile8* initFTile8(enum CDEPTH cdepth, enum PXLSZ pixelsz);
 
 #endif
 

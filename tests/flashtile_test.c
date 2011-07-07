@@ -19,7 +19,7 @@ void test_flashtiles(void)
    }else{
    (*ftiles).pixels[5] = 0x45;
    CU_ASSERT(0x45 == (*ftiles).pixels[5]);
-   destroyFTile8(ftiles);
+//   destroyFTile8(ftiles);
    }
 }
 //Test batch initialization into memory
@@ -30,16 +30,15 @@ void test_flashtiles(void)
 void test_flashtileload(void)
 {
 //Test the pixels
+   FTile8* ftiles = initFTile8(8, 256);
    if(ftiles == NULL){
       CU_FAIL("tiles not initalized, requirement failure, redo");
       return;
    }else{
-
-   FTile8* ftiles = initFTile8(8, 256);
-   loadFTile8(testTiles, ftiles);
-   CU_ASSERT(2 == (*files).pixles[5]);
+//   loadFTile8(testTile, ftiles);
+   CU_ASSERT(2 == (*ftiles).pixels[5]);
    }
-   destroyFTile8(ftiles);
+//   destroyFTile8(ftiles);
 }
 
 int main(void){
