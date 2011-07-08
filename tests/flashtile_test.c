@@ -35,8 +35,8 @@ void test_flashtileload(void)
       CU_FAIL("tiles not initalized, requirement failure, redo");
       return;
    }else{
-//   loadFTile8(testTile, ftiles);
-   CU_ASSERT(2 == (*ftiles).pixels[5]);
+   loadFTile8(testTile, ftiles);
+   CU_ASSERT(1 == (*ftiles).pixels[5]);
    }
 //   destroyFTile8(ftiles);
 }

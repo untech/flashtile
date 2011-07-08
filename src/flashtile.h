@@ -19,6 +19,6 @@ enum CDEPTH depth;
 }FTile8;
  
 FTile8* initFTile8(enum CDEPTH cdepth, enum PXLSZ pixelsz);
-
+void loadFTile8(const unsigned char* src, FTile8* dst);
 #endif
 

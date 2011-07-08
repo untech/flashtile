@@ -2,6 +2,7 @@
 //Author: Phil Smith && Stevie Frederick
 //This serves as the base file for the Flash Tile source.
 #include <malloc.h>
+#include <string.h>
 #include "flashtile.h"
 
 
@@ -14,6 +15,16 @@ ptiles = (FTile8*)malloc(sizeof(FTile8));
 //stub, put your shit in here
 
 return ptiles;
+}
+
+void loadFTile8(const unsigned char* src, FTile8* dst){
+if(dst == 0){
+return;
+}
+if(sizeof(src) != sizeof((*dst).pixels)){
+return;
+}
+memcpy((*dst).pixels,src,sizeof((*dst).pixels));
 }
 
 
