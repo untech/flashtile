@@ -1,6 +1,6 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
-#include "../src/flashtile.h"
+#include "../src/tilemap/flashtile.h"
 #include "flashcases.h"
 
 //write a function initFTile16(); that will take a struct type 
@@ -9,10 +9,15 @@
 //this tests the basic functionality of the FTile typedef using initFTile
 //then testing to see if it can set the value of a middle spot in the memory
 //array
+
+//TODO remove Color Depth, inherant in tile set and PAL width
+//this includes PAL width C width
+//TODO size of tests for all tiles test (pal too)
+
 void test_flashtiles(void)
 {  
 //Test the initialization into memory
-   FTile8* ftiles = initFTile8(8, 256);
+   FTile8* ftiles = initFTile8(8, 8);
    if(ftiles == NULL){
       CU_FAIL("tiles not initalized, requirement failure, redo");
       return;
@@ -27,7 +32,7 @@ void test_flashtiles(void)
 void test_flashtileload(void)
 {
 //Test the pixels
-   FTile8* ftiles = initFTile8(8, 256);
+   FTile8* ftiles = initFTile8(8, 8);
    if(ftiles == NULL){
       CU_FAIL("tiles not initalized, requirement failure, redo");
       return;
@@ -37,34 +42,36 @@ void test_flashtileload(void)
    }
 //   releaseFTile8(ftiles);
 }
+
 void test_flashtiledestroy(void)
 {
-   FTile8* ftiles = initFTile8(8, 256);
+   FTile8* ftiles = initFTile8(8, 8);
    if(ftiles == NULL){
 	CU_FAIL("memory failure");
         return;
     }
-   releaseFTile8(ftiles);
+//   releaseFTile8(ftiles);
    CU_ASSERT(0 == ftiles);
 }
 
 void test_flashpals(){
-    FPal8* fpals = initFPal8(16);
+    FPal8* fpals = initFPal8(16, 256);
     if(fpals == NULL){
          CU_FAIL("pals failure");
          return;
-    }
-   CU_ASSERT(0 == fpals);
+   }
+   (*fpals).colors[4] = 3;
+   CU_ASSERT(3 == (*fpals).colors[4]);
 }
 
 void test_flashpalsload(){
-    FPal8* fpals = initFPal8(16);
+    FPal8* fpals = initFPal8(16, 256);
     if(fpals == NULL){
          CU_FAIL("pals failure");
          return;
     }
    loadFPal8(testPal,fpals);
-   CU_ASSERT(128 == (fpals*).colors[5]);
+   CU_ASSERT(1 == (*fpals).colors[5]);
 }
  
 int main(void){
@@ -72,6 +79,8 @@ CU_initialize_registry();
 CU_pSuite pSuite = CU_add_suite("Suite_1", NULL, NULL);
 CU_add_test(pSuite, "tiler mem test", test_flashtiles);
 CU_add_test(pSuite, "tiler load test", test_flashtileload);
+CU_add_test(pSuite, "pal mem test", test_flashpals);
+CU_add_test(pSuite, "pal load test", test_flashpalsload);
 CU_basic_set_mode(CU_BRM_VERBOSE);
 CU_basic_run_tests();
 CU_cleanup_registry();

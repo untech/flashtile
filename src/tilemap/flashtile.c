@@ -5,6 +5,17 @@
 #include <string.h>
 #include "flashtile.h"
 
+FPal8* initFPal8(enum CWIDTH cbits, enum PALSZ palsize){
+FPal8* tpal = 0;
+tpal = (FPal8*)malloc(sizeof(FPal8));
+(*tpal).colors = (unsigned short*)malloc(sizeof(unsigned short)*(palsize));
+(*tpal).cwidth = cbits;
+}
+
+void loadFPal8(const unsigned short* src, FPal8* dst){
+
+
+}
 
 //first function based on unit tests fill in to pass unit test
 FTile8* initFTile8(enum CDEPTH cdepth, enum PXLSZ pixelsz){
