@@ -42,6 +42,6 @@ FTile8* initFTile8(enum CDEPTH cdepth, enum PXLSZ pixelsz);
 void loadFTile8(const unsigned char* src, FTile8* dst);
 FPal8* initFPal8(enum CWIDTH cbits, enum PALSZ palsize);
 void loadFPal8(const unsigned short* src, FPal8* dst);
-FMap8* initFMap8();
+FMap8* initFMap8(); //TODO perhaps width and height?
 #endif
 
