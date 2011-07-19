@@ -73,7 +73,26 @@ void test_flashpalsload(){
    loadFPal8(testPal,fpals);
    CU_ASSERT(1 == (*fpals).colors[5]);
 }
+
+void test_flashmap(){
+    FMap8* fmap = initFMap8();
+    if(fmap == NULL){
+	CU_FAIL("map init failure");
+	return;
+    }
+   (*fmap).tiles[0] =  5;
+   CU_ASSERT(5 = (*fmap).tiles[0]);
+}
  
+void test_mapmemory(){
+    FMap8* fmap = initFMap();
+    if(fmap == NULL){
+       	CU_FAIL("map init failure");
+	return;
+    }
+
+}
+
 int main(void){
 CU_initialize_registry();
 CU_pSuite pSuite = CU_add_suite("Suite_1", NULL, NULL);
