@@ -17,6 +17,12 @@ void loadFPal8(const unsigned short* src, FPal8* dst){
 
 }
 
+FMap8* initFMap8(){
+FMap8* fmaps = 0;
+
+return fmaps;
+}
+
 //first function based on unit tests fill in to pass unit test
 FTile8* initFTile8(enum CDEPTH cdepth, enum PXLSZ pixelsz){
 FTile8* ptiles = 0;

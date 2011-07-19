@@ -22,10 +22,6 @@ BITWIDTH_32 = 32,
 };
 
 typedef struct{
-unsigned short* tiles;
-}FMap8;
-
-typedef struct{
 unsigned short* colors;
 enum CWIDTH cwidth;
 }FPal8;
@@ -37,10 +33,15 @@ enum CDEPTH depth;
 //figure out how to hold palette values or something
 }FTile8;
  
+typedef struct{
+unsigned short* tiles;
+FPal8* palbase;
+}FMap8;
+
 FTile8* initFTile8(enum CDEPTH cdepth, enum PXLSZ pixelsz);
 void loadFTile8(const unsigned char* src, FTile8* dst);
 FPal8* initFPal8(enum CWIDTH cbits, enum PALSZ palsize);
 void loadFPal8(const unsigned short* src, FPal8* dst);
-
+FMap8* initFMap8();
 #endif
 

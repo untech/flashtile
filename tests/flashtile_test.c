@@ -76,16 +76,21 @@ void test_flashpalsload(){
 
 void test_flashmap(){
     FMap8* fmap = initFMap8();
+    FPal8* fpals = initFPal8(16, 256);
     if(fmap == NULL){
 	CU_FAIL("map init failure");
 	return;
     }
    (*fmap).tiles[0] =  5;
-   CU_ASSERT(5 = (*fmap).tiles[0]);
+   (*fmap).palbase = fpals;
+
+   CU_ASSERT(5 == (*fmap).tiles[0]);
+   CU_ASSERT(fpals == (*fmap).palbase);
+
 }
  
 void test_mapmemory(){
-    FMap8* fmap = initFMap();
+    FMap8* fmap = initFMap8();
     if(fmap == NULL){
        	CU_FAIL("map init failure");
 	return;
@@ -100,6 +105,7 @@ CU_add_test(pSuite, "tiler mem test", test_flashtiles);
 CU_add_test(pSuite, "tiler load test", test_flashtileload);
 CU_add_test(pSuite, "pal mem test", test_flashpals);
 CU_add_test(pSuite, "pal load test", test_flashpalsload);
+CU_add_test(pSuite, "map mem test", test_flashmap);
 CU_basic_set_mode(CU_BRM_VERBOSE);
 CU_basic_run_tests();
 CU_cleanup_registry();
