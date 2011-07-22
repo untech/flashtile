@@ -36,6 +36,7 @@ enum CDEPTH depth;
 typedef struct{
 unsigned short* tiles;
 FPal8* palbase;
+FTile8* tilebase;
 }FMap8;
 
 FTile8* initFTile8(enum CDEPTH cdepth, enum PXLSZ pixelsz);

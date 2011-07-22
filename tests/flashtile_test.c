@@ -86,7 +86,7 @@ void test_flashmap(){
 
    CU_ASSERT(5 == (*fmap).tiles[0]);
    CU_ASSERT(fpals == (*fmap).palbase);
-
+   CU_ASSERT(fpals == (*fmap).tilebase); 
 }
  
 void test_mapmemory(){
