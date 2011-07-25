@@ -14,12 +14,23 @@ tpal = (FPal8*)malloc(sizeof(FPal8));
 
 void loadFPal8(const unsigned short* src, FPal8* dst){
 
-
+if(dst == 0){
+return;
+}
+if(sizeof(src) != sizeof((*dst).colors)){
+return;
+}
+memcpy((*dst).colors,src,sizeof((*dst).colors));
 }
 
-FMap8* initFMap8(){
+FMap8* initFMap8(int width, int height){ //will probably enumerate this
 FMap8* fmaps = 0;
-
+fmaps = (FMap8*)malloc(sizeof(FTile8));
+(*fmaps).tiles = (unsigned short*)malloc(sizeof(unsigned short)*width*height);
+(*fmaps).height = height;
+(*fmaps).width = width;
+(*fmaps).tilebase = 0;
+(*fmaps).palbase = 0;
 return fmaps;
 }
 
@@ -32,7 +43,7 @@ FTile8* initFTile8(enum CDEPTH cdepth, enum PXLSZ pixelsz){
 FTile8* ptiles = 0;
 ptiles = (FTile8*)malloc(sizeof(FTile8));
 (*ptiles).pixels = (unsigned char*)malloc(sizeof(unsigned char)*(pixelsz*pixelsz));
-(*ptiles).depth = cdepth;
+(*ptiles).depth = cdepth; //this can probably be deprecated
 //stub, put your shit in here
 
 return ptiles;

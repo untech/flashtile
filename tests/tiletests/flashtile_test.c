@@ -71,11 +71,11 @@ void test_flashpalsload(){
          return;
     }
    loadFPal8(testPal,fpals);
-   CU_ASSERT(1 == (*fpals).colors[5]);
+   CU_ASSERT(1 == (*fpals).colors[0]);
 }
 
 void test_flashmap(){
-    FMap8* fmap = initFMap8();
+    FMap8* fmap = initFMap8(15,15);
     FPal8* fpals = initFPal8(16, 256); 
     FTile8* ftiles = initFTile8(8, 8);
     if(fmap == NULL){
@@ -85,13 +85,15 @@ void test_flashmap(){
    (*fmap).tiles[0] =  5;
    (*fmap).palbase = fpals;
    (*fmap).tilebase = ftiles;
+   CU_ASSERT(15 == (*fmap).width);
+   CU_ASSERT(15 == (*fmap).height);
    CU_ASSERT(5 == (*fmap).tiles[0]);
    CU_ASSERT(fpals == (*fmap).palbase);
    CU_ASSERT(ftiles == (*fmap).tilebase); 
 }
  
 void test_mapload(){
-    FMap8* fmap = initFMap8();
+    FMap8* fmap = initFMap8(8,8);
     if(fmap == NULL){
        	CU_FAIL("map init failure");
 	return;
