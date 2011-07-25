@@ -1,6 +1,6 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
-#include "../src/tilemap/flashtile.h"
+#include "../../src/tilemap/flashtile.h"
 #include "flashcases.h"
 
 //write a function initFTile16(); that will take a struct type 

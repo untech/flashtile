@@ -1,0 +1,7 @@
+BMPDUMP src is used as the facade to the graphics interpreters and hardware.
+
+The Allegro Facade dumps tiles to an allegro screen. 
+
+Each facade initializes its corresponding hardware in the subsystem.
+
+
