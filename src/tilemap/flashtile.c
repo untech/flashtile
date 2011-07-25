@@ -23,6 +23,10 @@ FMap8* fmaps = 0;
 return fmaps;
 }
 
+void loadFMap8(FTile8* tilebase, FPal8* palbase, FMap8* fmap){
+
+}
+
 //first function based on unit tests fill in to pass unit test
 FTile8* initFTile8(enum CDEPTH cdepth, enum PXLSZ pixelsz){
 FTile8* ptiles = 0;
