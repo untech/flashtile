@@ -7,3 +7,5 @@ test:
 	gcc -c flashtile.c;
 	mv flashtile.o ../../tests/tiletests
 
+clean:
+	@rm flashtile.o

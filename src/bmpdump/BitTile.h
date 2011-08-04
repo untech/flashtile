@@ -6,12 +6,18 @@
 
 //in theory implementations of the facade result in platform compatibility
 
+
+extern "C" {
+#include "../tilemap/flashtile.h" //C includes
+}
+
 class IBitTile
 {
       public:
 	virtual ~IBitTile() { }
-	virtual loadFTiles() = 0; 
-	virtual Release() = 0;
+	virtual void loadFTiles(FMap8* p_map) = 0; 
+	virtual void Release() = 0;
+	virtual void Render() = 0;
 
 };
 
