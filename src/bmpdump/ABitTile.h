@@ -12,6 +12,12 @@ class ABitTile: public IBitTile{
 
 	static ABitTile* InterfaceGet();
 
+	//Tiles and maps
+
+
+	private:
+	inline ABitTile();
+
 };
 
-
+extern ABitTile* pABit;
