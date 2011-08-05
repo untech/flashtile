@@ -1,4 +1,4 @@
-//This file serves as the facade necessary to 
+//This file serves as the facade necessary to render out to Allegro 
 
 #include "ABitTile.h"
 

@@ -20,9 +20,11 @@ class ABitTile: public IBitTile{
 	FTile8* p_tile;
 	FMap8* p_map;
 	FPal8* p_pal;
-
 	
-
+	//Allegro Specific GFX
+	BITMAP *backbuffer; //for double buffering draw to this sucker
+	BITMAP *layer1; //Initial test for simple layering the bitmaps levels
+	BITMAP *layer2;
 
 	private:
 	inline ABitTile();
