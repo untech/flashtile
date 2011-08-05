@@ -1,13 +1,16 @@
 //This file serves as the facade necessary to 
 
 #include "ABitTile.h"
-#include "allegro.h"
+
+ABitTile* pABit = 0;
+int pARef = 0;
 
 IBitTile* createAxBitTile(){
 return (IBitTile*)ABitTile::InterfaceGet();
 }
 
 ABitTile* ABitTile::InterfaceGet(){
+
 
 if(!pABit)
 pABit = new ABitTile();

@@ -18,6 +18,7 @@ class IBitTile
 	virtual void loadFTiles(FMap8* p_map) = 0; 
 	virtual void Release() = 0;
 	virtual void Render() = 0;
+	virtual void Init() = 0;
 
 };
 

@@ -6,16 +6,19 @@ PALS_256 = 256,
 PALS_512 = 512
 };
 
+//TODO Remove
 enum CDEPTH{
 COLOR_8 = 8,
 COLOR_16 = 16
 };
 
+//TODO remove implicitly defined based on tile strong TYPE
 enum PXLSZ{
 PIXEL_8 = 8,
 PIXEL_16 = 16
 };
 
+//TODO remove
 enum CWIDTH{
 BITWIDTH_16 = 16,
 BITWIDTH_32 = 32,

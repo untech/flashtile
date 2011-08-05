@@ -92,13 +92,14 @@ void test_flashmap(){
    CU_ASSERT(ftiles == (*fmap).tilebase); 
 }
  
-void test_mapload(){
+void test_flashmapload(){
     FMap8* fmap = initFMap8(8,8);
     if(fmap == NULL){
        	CU_FAIL("map init failure");
 	return;
     }
-//    fmap
+    CU_FAIL("automatic failure, no design for test");
+//TODO Implement test and remove auto fail
 
 }
 
@@ -110,6 +111,7 @@ CU_add_test(pSuite, "tiler load test", test_flashtileload);
 CU_add_test(pSuite, "pal mem test", test_flashpals);
 CU_add_test(pSuite, "pal load test", test_flashpalsload);
 CU_add_test(pSuite, "map mem test", test_flashmap);
+CU_add_test(pSuite, "map load test", test_flashmapload);
 CU_basic_set_mode(CU_BRM_VERBOSE);
 CU_basic_run_tests();
 CU_cleanup_registry();
