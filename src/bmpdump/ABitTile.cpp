@@ -20,6 +20,10 @@ return pABit;
 }
 
 
+ABitTile::~ABitTile(){
+
+}
+
 ABitTile::ABitTile(){
 
 }
@@ -27,6 +31,13 @@ ABitTile::ABitTile(){
 void ABitTile::Render(){
 
 
+}
+
+void ABitTile::Init(){
+allegro_init();
+install_keyboard();
+set_color_depth(16);
+set_gfx_mode(GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0);
 }
 
 void ABitTile::Release(){
@@ -37,8 +48,20 @@ pABit = 0;
 }
 }
 
-void ABitTile::loadFTiles(FMap8* p_map){
+void ABitTile::loadTiles(FTile8* p_tile, int size, unsigned char* src){
 
 
 
 } 
+
+void ABitTile::loadPal(FPal8* p_pal, int size, unsigned short* src){
+
+
+
+}
+
+
+void ABitTile::loadMap(FMap8* p_map, int size, unsigned short* src){
+
+}
+

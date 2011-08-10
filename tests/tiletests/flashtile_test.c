@@ -38,7 +38,7 @@ void test_flashtileload(void)
       return;
    }else{
    loadFTile8(testTile, ftiles);
-   CU_ASSERT(1 == (*ftiles).pixels[5]);
+   CU_ASSERT(1 == (*ftiles).pixels[62]);
    }
 //   releaseFTile8(ftiles);
 }
@@ -71,7 +71,7 @@ void test_flashpalsload(){
          return;
     }
    loadFPal8(testPal,fpals);
-   CU_ASSERT(1 == (*fpals).colors[0]);
+   CU_ASSERT(1 == (*fpals).colors[24]);
 }
 
 void test_flashmap(){
@@ -82,24 +82,29 @@ void test_flashmap(){
 	CU_FAIL("map init failure");
 	return;
     }
-   (*fmap).tiles[0] =  5;
+   (*fmap).tiles[192] =  5;
    (*fmap).palbase = fpals;
    (*fmap).tilebase = ftiles;
    CU_ASSERT(15 == (*fmap).width);
    CU_ASSERT(15 == (*fmap).height);
-   CU_ASSERT(5 == (*fmap).tiles[0]);
+   CU_ASSERT(5 == (*fmap).tiles[192]);
    CU_ASSERT(fpals == (*fmap).palbase);
    CU_ASSERT(ftiles == (*fmap).tilebase); 
 }
  
 void test_flashmapload(){
-    FMap8* fmap = initFMap8(8,8);
+    FMap8* fmap = initFMap8(15,15);
+    FPal8* fpals = initFPal8(16, 256); //in theory these would be refs to
+    FTile8* ftiles = initFTile8(8, 8); //large areas of memory
     if(fmap == NULL){
        	CU_FAIL("map init failure");
 	return;
     }
-    CU_FAIL("automatic failure, no design for test");
-//TODO Implement test and remove auto fail
+    loadFMap8(ftiles, fpals, fmap, testMap);
+
+    CU_ASSERT(fpals == (*fmap).palbase);
+    CU_ASSERT(ftiles == (*fmap).tilebase);
+    CU_ASSERT(3 == ((*fmap).tiles[4]));
 
 }
 
@@ -117,3 +122,5 @@ CU_basic_run_tests();
 CU_cleanup_registry();
 return 0;
 }
+
+

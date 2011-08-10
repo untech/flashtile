@@ -8,7 +8,9 @@ class ABitTile: public IBitTile{
 
       public:
 	virtual ~ABitTile();
-	virtual void loadFTiles(FMap8* p_map);
+        virtual void loadTiles(FTile8* p_tile, int size, unsigned char* src);
+        virtual void loadPal(FPal8* p_pal, int size, unsigned short* src);
+        virtual void loadMap(FMap8* p_map, int size, unsigned short* src);
 	virtual void Init();
 	virtual void Release();
 	virtual void Render();
@@ -17,9 +19,9 @@ class ABitTile: public IBitTile{
 
 	//Tiles and maps and palette pointers
 
-	FTile8* p_tile;
-	FMap8* p_map;
-	FPal8* p_pal;
+	FTile8* p_tile; //tile base memory
+	FMap8* p_map; //a map
+	FPal8* p_pal; //pal memory
 	
 	//Allegro Specific GFX
 	BITMAP *backbuffer; //for double buffering draw to this sucker

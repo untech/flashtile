@@ -42,12 +42,15 @@ FPal8* palbase;
 FTile8* tilebase;
 int height;
 int width;
+int size; //now necessary
 }FMap8;
 
-FTile8* initFTile8(enum CDEPTH cdepth, enum PXLSZ pixelsz);
+FTile8* initFTile8();
 void loadFTile8(const unsigned char* src, FTile8* dst);
 FPal8* initFPal8(enum CWIDTH cbits, enum PALSZ palsize);
 void loadFPal8(const unsigned short* src, FPal8* dst);
-FMap8* initFMap8(int width, int height); //TODO perhaps width and height? 
+FMap8* initFMap8(int width, int height); //TODO perhaps width and height?
+void loadFMap8(FTile8* tilebase, FPal8* palbase, FMap8* dst, const unsigned short* src);
+ 
 #endif
 

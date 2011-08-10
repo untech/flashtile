@@ -13,29 +13,39 @@ tpal = (FPal8*)malloc(sizeof(FPal8));
 }
 
 void loadFPal8(const unsigned short* src, FPal8* dst){
-
 if(dst == 0){
 return;
 }
 if(sizeof(src) != sizeof((*dst).colors)){
 return;
 }
-memcpy((*dst).colors,src,sizeof((*dst).colors));
+memcpy((*dst).colors,src,sizeof(unsigned short)*128);
 }
 
 FMap8* initFMap8(int width, int height){ //will probably enumerate this
 FMap8* fmaps = 0;
 fmaps = (FMap8*)malloc(sizeof(FTile8));
-(*fmaps).tiles = (unsigned short*)malloc(sizeof(unsigned short)*width*height);
-(*fmaps).height = height;
-(*fmaps).width = width;
+(*fmaps).size = width*height;
+(*fmaps).tiles = (unsigned short*)malloc(sizeof(unsigned short)*(width*height));
 (*fmaps).tilebase = 0;
 (*fmaps).palbase = 0;
 return fmaps;
 }
 
-void loadFMap8(FTile8* tilebase, FPal8* palbase, FMap8* fmap){
-
+void loadFMap8(FTile8* tilebase, FPal8* palbase, FMap8* dst, const unsigned short* src){
+if(src == 0){
+return;
+}
+if(!(*dst).width || !(*dst).height){
+return;
+}
+if(sizeof(src) != sizeof((*dst).tiles)){
+return;
+}
+//load up the tiles
+memcpy((*dst).tiles,src,sizeof(unsigned short)*15*15);
+(*dst).tilebase = tilebase;
+(*dst).palbase = palbase;
 }
 
 //first function based on unit tests fill in to pass unit test
@@ -56,7 +66,7 @@ return;
 if(sizeof(src) != sizeof((*dst).pixels)){
 return;
 }
-memcpy((*dst).pixels,src,sizeof((*dst).pixels));
+memcpy((*dst).pixels,src,sizeof(unsigned char)*64);
 }
 
 
