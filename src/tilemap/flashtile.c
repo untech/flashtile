@@ -24,7 +24,9 @@ memcpy((*dst).colors,src,sizeof(unsigned short)*128);
 
 FMap8* initFMap8(int width, int height){ //will probably enumerate this
 FMap8* fmaps = 0;
-fmaps = (FMap8*)malloc(sizeof(FTile8));
+fmaps = (FMap8*)malloc(sizeof(FMap8));
+(*fmaps).width = width;
+(*fmaps).height = height;
 (*fmaps).size = width*height;
 (*fmaps).tiles = (unsigned short*)malloc(sizeof(unsigned short)*(width*height));
 (*fmaps).tilebase = 0;
