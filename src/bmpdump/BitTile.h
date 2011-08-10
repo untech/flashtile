@@ -15,9 +15,9 @@ class IBitTile
 {
       public:
 	virtual ~IBitTile() { }
-	virtual void loadTiles(FTile8* p_tile, int size, unsigned char* src) = 0; 
-	virtual void loadMap(FMap8* p_map, int size, unsigned short* src) = 0;
-	virtual void loadPal(FPal8* p_pal, int size, unsigned short* src) = 0;
+	virtual void loadTiles(int size, unsigned char* src) = 0; 
+	virtual void loadMap(int size, unsigned short* src) = 0;
+	virtual void loadPal(int size, unsigned short* src) = 0;
 	virtual void Release() = 0;
 	virtual void Render() = 0;
 	virtual void Init() = 0;

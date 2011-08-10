@@ -48,20 +48,20 @@ pABit = 0;
 }
 }
 
-void ABitTile::loadTiles(FTile8* p_tile, int size, unsigned char* src){
+void ABitTile::loadTiles(int size, unsigned char* src){
 
 
 
 } 
 
-void ABitTile::loadPal(FPal8* p_pal, int size, unsigned short* src){
+void ABitTile::loadPal(int size, unsigned short* src){
 
 
 
 }
 
 
-void ABitTile::loadMap(FMap8* p_map, int size, unsigned short* src){
+void ABitTile::loadMap(int size, unsigned short* src){
 
 }
 

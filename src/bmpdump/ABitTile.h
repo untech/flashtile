@@ -8,9 +8,9 @@ class ABitTile: public IBitTile{
 
       public:
 	virtual ~ABitTile();
-        virtual void loadTiles(FTile8* p_tile, int size, unsigned char* src);
-        virtual void loadPal(FPal8* p_pal, int size, unsigned short* src);
-        virtual void loadMap(FMap8* p_map, int size, unsigned short* src);
+        virtual void loadTiles(int size, unsigned char* src);
+        virtual void loadPal(int size, unsigned short* src);
+        virtual void loadMap(int size, unsigned short* src);
 	virtual void Init();
 	virtual void Release();
 	virtual void Render();
