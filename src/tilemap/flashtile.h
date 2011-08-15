@@ -30,16 +30,19 @@ enum CWIDTH cwidth;
 }FPal8;
 
 //define structure for the tiles right here
-typedef struct{
+typedef struct {
 unsigned char* pixels;
 enum CDEPTH depth;
+} FTile8;
 //figure out how to hold palette values or something
-}FTile8;
+// FTile8 *next;
+// };
+
  
 typedef struct{
 unsigned short* tiles;
-FPal8* palbase;
-FTile8* tilebase;
+//FPal8* palbase;
+//FTile8* tilebase;
 int height;
 int width;
 int size; //now necessary
@@ -50,7 +53,7 @@ void loadFTile8(const unsigned char* src, FTile8* dst);
 FPal8* initFPal8(enum CWIDTH cbits, enum PALSZ palsize);
 void loadFPal8(const unsigned short* src, FPal8* dst);
 FMap8* initFMap8(int width, int height); //TODO perhaps width and height?
-void loadFMap8(FTile8* tilebase, FPal8* palbase, FMap8* dst, const unsigned short* src);
+void loadFMap8(FMap8* dst, const unsigned short* src);
  
 #endif
 

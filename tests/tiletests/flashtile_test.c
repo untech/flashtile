@@ -17,7 +17,7 @@
 void test_flashtiles(void)
 {  
 //Test the initialization into memory
-   FTile8* ftiles = initFTile8(8, 8);
+   FTile8* ftiles = initFTile8();
    if(ftiles == NULL){
       CU_FAIL("tiles not initalized, requirement failure, redo");
       return;
@@ -32,7 +32,7 @@ void test_flashtiles(void)
 void test_flashtileload(void)
 {
 //Test the pixels
-   FTile8* ftiles = initFTile8(8, 8);
+   FTile8* ftiles = initFTile8();
    if(ftiles == NULL){
       CU_FAIL("tiles not initalized, requirement failure, redo");
       return;
@@ -45,7 +45,7 @@ void test_flashtileload(void)
 
 void test_flashtiledestroy(void)
 {
-   FTile8* ftiles = initFTile8(8, 8);
+   FTile8* ftiles = initFTile8();
    if(ftiles == NULL){
 	CU_FAIL("memory failure");
         return;
@@ -76,34 +76,24 @@ void test_flashpalsload(){
 
 void test_flashmap(){
     FMap8* fmap = initFMap8(15,15);
-    FPal8* fpals = initFPal8(16, 256); 
-    FTile8* ftiles = initFTile8(8, 8);
     if(fmap == NULL){
 	CU_FAIL("map init failure");
 	return;
     }
    (*fmap).tiles[192] =  5;
-   (*fmap).palbase = fpals;
-   (*fmap).tilebase = ftiles;
    CU_ASSERT(15 == (*fmap).width);
    CU_ASSERT(15 == (*fmap).height);
    CU_ASSERT(5 == (*fmap).tiles[192]);
-   CU_ASSERT(fpals == (*fmap).palbase);
-   CU_ASSERT(ftiles == (*fmap).tilebase); 
 }
  
 void test_flashmapload(){
     FMap8* fmap = initFMap8(15,15);
-    FPal8* fpals = initFPal8(16, 256); //in theory these would be refs to
-    FTile8* ftiles = initFTile8(8, 8); //large areas of memory
     if(fmap == NULL){
        	CU_FAIL("map init failure");
 	return;
     }
-    loadFMap8(ftiles, fpals, fmap, testMap);
+    loadFMap8(fmap, testMap);
 
-    CU_ASSERT(fpals == (*fmap).palbase);
-    CU_ASSERT(ftiles == (*fmap).tilebase);
     CU_ASSERT(3 == ((*fmap).tiles[4]));
 
 }

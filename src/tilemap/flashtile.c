@@ -29,12 +29,10 @@ fmaps = (FMap8*)malloc(sizeof(FMap8));
 (*fmaps).height = height;
 (*fmaps).size = width*height;
 (*fmaps).tiles = (unsigned short*)malloc(sizeof(unsigned short)*(width*height));
-(*fmaps).tilebase = 0;
-(*fmaps).palbase = 0;
 return fmaps;
 }
 
-void loadFMap8(FTile8* tilebase, FPal8* palbase, FMap8* dst, const unsigned short* src){
+void loadFMap8(FMap8* dst, const unsigned short* src){
 if(src == 0){
 return;
 }
@@ -46,16 +44,14 @@ return;
 }
 //load up the tiles
 memcpy((*dst).tiles,src,sizeof(unsigned short)*15*15);
-(*dst).tilebase = tilebase;
-(*dst).palbase = palbase;
 }
 
 //first function based on unit tests fill in to pass unit test
-FTile8* initFTile8(enum CDEPTH cdepth, enum PXLSZ pixelsz){
+FTile8* initFTile8(){
 FTile8* ptiles = 0;
 ptiles = (FTile8*)malloc(sizeof(FTile8));
-(*ptiles).pixels = (unsigned char*)malloc(sizeof(unsigned char)*(pixelsz*pixelsz));
-(*ptiles).depth = cdepth; //this can probably be deprecated
+(*ptiles).pixels = (unsigned char*)malloc(sizeof(unsigned char)*(64));
+//(*ptiles).depth = cdepth; //this can probably be deprecated
 //stub, put your shit in here
 
 return ptiles;
