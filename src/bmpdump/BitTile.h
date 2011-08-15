@@ -19,6 +19,7 @@ class IBitTile
 	virtual void loadMap(int size, unsigned short* src) = 0;
 	virtual void loadPal(int size, unsigned short* src) = 0;
 	virtual void Release() = 0;
+	virtual void Flush() = 0;
 	virtual void Render() = 0;
 	virtual void Init() = 0;
 

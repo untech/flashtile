@@ -13,13 +13,14 @@ class ABitTile: public IBitTile{
         virtual void loadMap(int size, unsigned short* src);
 	virtual void Init();
 	virtual void Release();
+	virtual void Flush();
 	virtual void Render();
 
 	static ABitTile* InterfaceGet();
 
 	//Tiles and maps and palette pointers
 
-	FTile8* p_tile; //tile base memory
+	FTile8** p_tile; //tile base memory
 	FMap8* p_map; //a map
 	FPal8* p_pal; //pal memory
 	
@@ -27,6 +28,11 @@ class ABitTile: public IBitTile{
 	BITMAP *backbuffer; //for double buffering draw to this sucker
 	BITMAP *layer1; //Initial test for simple layering the bitmaps levels
 	BITMAP *layer2;
+	//A map will be drawn to the bitmaps during a flush call
+	//Afterwards the surfaces must be blitted to be rendered to the display
+
+	int screenX, screenY; //used for clipping
+	int screenW, screenH;
 
 	private:
 	inline ABitTile();
