@@ -50,8 +50,8 @@ void test_flashtiledestroy(void)
 	CU_FAIL("memory failure");
         return;
     }
-//   releaseFTile8(ftiles);
-   CU_ASSERT(0 == ftiles);
+   releaseFTile8(ftiles);
+   CU_ASSERT((*ftiles).pixels == NULL);
 }
 
 void test_flashpals(){
@@ -103,6 +103,7 @@ CU_initialize_registry();
 CU_pSuite pSuite = CU_add_suite("Suite_1", NULL, NULL);
 CU_add_test(pSuite, "tiler mem test", test_flashtiles);
 CU_add_test(pSuite, "tiler load test", test_flashtileload);
+CU_add_test(pSuite, "tiler release test", test_flashtiledestroy);
 CU_add_test(pSuite, "pal mem test", test_flashpals);
 CU_add_test(pSuite, "pal load test", test_flashpalsload);
 CU_add_test(pSuite, "map mem test", test_flashmap);
