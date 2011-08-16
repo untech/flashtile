@@ -57,6 +57,14 @@ ptiles = (FTile8*)malloc(sizeof(FTile8));
 return ptiles;
 }
 
+void releaseFTile8(FTile8* ftiles){
+free((*ftiles).pixels);
+(*ftiles).pixels = NULL;
+free(ftiles);
+//ftiles = (FTile8*)NULL; have no idea why this lline has no effect 
+//Struct pointers are really fucking weird ugh makes me miss C++
+}
+
 void loadFTile8(const unsigned char* src, FTile8* dst){
 if(dst == 0){
 return;
