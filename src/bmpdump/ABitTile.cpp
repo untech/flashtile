@@ -27,18 +27,20 @@ ABitTile::~ABitTile(){
 }
 
 ABitTile::ABitTile(){
+tilecap = 0;
 //A pool of tiles. Destruction method needed
 p_tile = new FTile8*[TILEMEM];
 //Allocate tile memory in software
 for(int i = 0; i < TILEMEM; i++){
 p_tile[i] = initFTile8(); //kinda tile pool
 }
-
+p_pal = initFPal8(BITWIDTH_16, PALS_256);
+//TODO SBB/CBB for Nintendo based hardware? 
+p_map = initFMap8(256,256); //TODO add variable length in the future
 }
 
 //Flush the current tileset to bitmaps which can be placed into memory
 void ABitTile::Flush(){
-
 
 }
 
@@ -65,8 +67,16 @@ pABit = 0;
 
 //Controlled by config flags in the FlashConfig API call
 void ABitTile::loadTiles(int size, unsigned char* src){
-
-
+if(size%64 != 0){
+return;
+}
+if(size/64 > TILEMEM){
+return;
+}
+for(int i = 0; i<size/64; i++){
+loadFTile8((const unsigned char*)(&src[i*64]),p_tile[i]);
+tilecap += 1;
+}
 
 } 
 

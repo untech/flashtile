@@ -20,6 +20,8 @@ class ABitTile: public IBitTile{
 
 	//Tiles and maps and palette pointers
 
+	int tilecap;
+
 	FTile8** p_tile; //tile base memory
 	FMap8* p_map; //a map
 	FPal8* p_pal; //pal memory
