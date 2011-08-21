@@ -39,9 +39,8 @@ const unsigned char testTile[64] =
 	1,1,1,1,1,1,1,1
 };
 
-const unsigned short testPal[256] =
+const unsigned short testPal[248] =
 {
-	1,1,1,1,1,1,1,1,
 	1,1,1,1,1,1,1,1,
 	1,1,1,1,1,1,1,1,
 	1,1,1,1,1,1,1,1,

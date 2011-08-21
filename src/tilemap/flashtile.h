@@ -26,6 +26,7 @@ BITWIDTH_32 = 32,
 
 typedef struct{
 unsigned short* colors;
+enum PALSZ palsize;
 enum CWIDTH cwidth;
 }FPal8;
 

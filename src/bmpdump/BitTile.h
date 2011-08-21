@@ -16,7 +16,7 @@ class IBitTile
       public:
 	virtual ~IBitTile() { }
 	virtual void loadTiles(int size, unsigned char* src) = 0; 
-	virtual void loadMap(int size, unsigned short* src) = 0;
+	virtual void loadMap(int width, int height, unsigned short* src) = 0;
 	virtual void loadPal(int size, unsigned short* src) = 0;
 	virtual void Release() = 0;
 	virtual void Flush() = 0;

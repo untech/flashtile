@@ -4,13 +4,14 @@
 #include "allegro.h"
 
 
+
 class ABitTile: public IBitTile{
 
       public:
 	virtual ~ABitTile();
         virtual void loadTiles(int size, unsigned char* src);
         virtual void loadPal(int size, unsigned short* src);
-        virtual void loadMap(int size, unsigned short* src);
+        virtual void loadMap(int width, int height, unsigned short* src);
 	virtual void Init();
 	virtual void Release();
 	virtual void Flush();
@@ -18,14 +19,18 @@ class ABitTile: public IBitTile{
 
 	static ABitTile* InterfaceGet();
 
+	void showTiles(); //Render tiles to screen for render testing
+
 	//Tiles and maps and palette pointers
 
-	int tilecap;
+	int tilecap; //pool loads
+	int palcap;
 
 	FTile8** p_tile; //tile base memory
 	FMap8* p_map; //a map
 	FPal8* p_pal; //pal memory
 	
+	BITMAP *tileset; //first of many tileset memory banks
 	//Allegro Specific GFX
 	BITMAP *backbuffer; //for double buffering draw to this sucker
 	BITMAP *layer1; //Initial test for simple layering the bitmaps levels

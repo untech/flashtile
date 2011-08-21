@@ -71,7 +71,8 @@ void test_flashpalsload(){
          return;
     }
    loadFPal8(testPal,fpals);
-   CU_ASSERT(1 == (*fpals).colors[24]);
+   CU_ASSERT(1 == (*fpals).colors[244]);
+   CU_ASSERT(1 != (*fpals).colors[255]);
 }
 
 void test_flashmap(){

@@ -9,6 +9,7 @@ FPal8* initFPal8(enum CWIDTH cbits, enum PALSZ palsize){
 FPal8* tpal = 0;
 tpal = (FPal8*)malloc(sizeof(FPal8));
 (*tpal).colors = (unsigned short*)malloc(sizeof(unsigned short)*(palsize));
+(*tpal).palsize = palsize;
 (*tpal).cwidth = cbits;
 }
 
@@ -16,10 +17,7 @@ void loadFPal8(const unsigned short* src, FPal8* dst){
 if(dst == 0){
 return;
 }
-if(sizeof(src) != sizeof((*dst).colors)){
-return;
-}
-memcpy((*dst).colors,src,sizeof(unsigned short)*128);
+memcpy((*dst).colors,src,sizeof(unsigned short)*(*dst).palsize);
 }
 
 FMap8* initFMap8(int width, int height){ //will probably enumerate this
@@ -43,7 +41,7 @@ if(sizeof(src) != sizeof((*dst).tiles)){
 return;
 }
 //load up the tiles
-memcpy((*dst).tiles,src,sizeof(unsigned short)*15*15);
+memcpy((*dst).tiles,src,sizeof(unsigned short)*(*dst).width*(*dst).height);
 }
 
 //first function based on unit tests fill in to pass unit test
@@ -67,9 +65,6 @@ free(ftiles);
 
 void loadFTile8(const unsigned char* src, FTile8* dst){
 if(dst == 0){
-return;
-}
-if(sizeof(src) != sizeof((*dst).pixels)){
 return;
 }
 memcpy((*dst).pixels,src,sizeof(unsigned char)*64);
