@@ -53,6 +53,8 @@ FTile8* initFTile8();
 void loadFTile8(const unsigned char* src, FTile8* dst);
 FPal8* initFPal8(enum CWIDTH cbits, enum PALSZ palsize);
 void releaseFTile8(FTile8* ftiles);
+void releaseFPal8(FPal8* pals);
+void releaseFMap8(FMap8* map);
 void loadFPal8(const unsigned short* src, FPal8* dst);
 FMap8* initFMap8(int width, int height); //TODO perhaps width and height?
 void loadFMap8(FMap8* dst, const unsigned short* src);

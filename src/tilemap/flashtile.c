@@ -63,6 +63,19 @@ free(ftiles);
 //Struct pointers are really fucking weird ugh makes me miss C++
 }
 
+void releaseFPal8(FPal8* pals){
+free((*pals).colors);
+(*pals).colors = NULL;
+free(pals);
+}
+
+void releaseFMap8(FMap8* map){
+if(!map){ return; }
+free((*map).tiles);
+(*map).tiles = NULL;
+free(map);
+}
+
 void loadFTile8(const unsigned char* src, FTile8* dst){
 if(dst == 0){
 return;

@@ -25,8 +25,6 @@ return (IBitTile*)ABitTile::InterfaceGet();
 }
 
 ABitTile* ABitTile::InterfaceGet(){
-
-
 if(!pABit)
 pABit = new ABitTile();
 
@@ -40,10 +38,12 @@ ABitTile::~ABitTile(){
 }
 
 ABitTile::ABitTile(){
+initbit = false;
 tilecap = 0; //current load of the first pool
 palcap = 0;
-//Base memory instantiation
 
+
+//Base memory instantiation
 //Flash Memory Pool/Memory "Bank"
 //Tile Pool 1 TODO make more tilepools if this works
 //A pool of tiles. Destruction method needed
@@ -54,11 +54,12 @@ p_tile[i] = initFTile8(); //kinda tile pool
 }
 p_pal = initFPal8(BITWIDTH_16, PALS_256);
 //TODO SBB/CBB for Nintendo based hardware? 
-p_map = initFMap8(256,256); //TODO add variable length in the future
+//p_map = initFMap8(256,256); //TODO add variable length in the future
 
 }
 
 //Flush the current tileset to bitmaps which can be placed into memory
+//TODO This is where transparency should appear
 void ABitTile::Flush(){
 BITMAP* tempbittile = create_bitmap(8, 8);
 for(int i = 0; i < tilecap; i++){
@@ -80,7 +81,7 @@ blit(tempbittile, tileset, 0, 0, (i*8)%(8*(TILEMEM/2)), ((i*8)/(8*(TILEMEM/2)))*
 }
 
 void ABitTile::Render(){
-this->showTiles();
+this->showTiles(); //for debugging
 blit(backbuffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 }
 
@@ -88,27 +89,94 @@ void ABitTile::showTiles(){
 blit(tileset, backbuffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 }
 
+//flushes current banks map-tile correlation to bmp memory
+void ABitTile::FlushBank(){
+
+
+}
+
+//brings a bank to the foreground
+void ABitTile::ChangeBanks(int bank){
+if(bank < 0 || bank > 3) { return; } //safeguard
+
+tileset = tilebanks[bank];
+curlayer = layers[bank];
+p_map = p_mapbank[bank];
+
+}
+
+//(Re)configures the engine stats 
+void ABitTile::PushConfig(PBITCAPS bitconfig){
+if(initbit == false){
+screenW = bitconfig->screen_w;
+screenH = bitconfig->screen_h;}
+mapW = bitconfig->map_w;
+mapH = bitconfig->map_h;
+//ignore color depth for now
+if(initbit == true){ //this switch will (re)initialize the mem banks /w config
+
+if(bitconfig->membank < 0 || bitconfig->membank > 3){ return; } //safeguard
+
+BITMAP* Ttileset = tilebanks[bitconfig->membank];
+BITMAP* Tcurlayer = layers[bitconfig->membank];
+FMap8* Tp_map = p_mapbank[bitconfig->membank];
+
+destroy_bitmap(Ttileset);
+destroy_bitmap(Tcurlayer);
+releaseFMap8(Tp_map);
+
+Ttileset = create_bitmap(8*(TILEMEM/2),8*(TILEMEM/2));
+Tcurlayer = create_bitmap(mapW*8,mapH*8);
+Tp_map = initFMap8(mapW, mapH);
+
+tilebanks[bitconfig->membank] = Ttileset;
+layers[bitconfig->membank] = Tcurlayer;
+p_mapbank[bitconfig->membank] = Tp_map;
+
+}
+
+}
+
+//Make sure engine is configured before initialising the engine
 void ABitTile::Init(){
 allegro_init();
 install_keyboard(); //Comment this out when InputController constructed
 set_color_depth(15);
-set_gfx_mode(GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0);
+set_gfx_mode(GFX_AUTODETECT_WINDOWED, screenW, screenH, 0, 0);
+backbuffer = create_bitmap(SCREEN_W, SCREEN_H);
 
+tilebanks = new BITMAP* [4];
+layers = new BITMAP* [4]; 
+p_mapbank = new FMap8* [4];
 
 tileset = create_bitmap(8*(TILEMEM/2),8*(TILEMEM/2));
-backbuffer = create_bitmap(SCREEN_W, SCREEN_H);
-layer1 = create_bitmap(256*8,256*8);
+curlayer = create_bitmap(mapW*8,mapH*8);
+p_map = initFMap8(mapW,mapH);
+
+curbank = 0;
+tilebanks[0] = tileset; //initial tileset
+layers[0] = curlayer;
+p_mapbank[0] = p_map;
+
+initbit = true;
+
+//layer1 = create_bitmap(mapW*8,mapH*8);
+//finish up the base init after first config is pushed
 
 }
 
 void ABitTile::Release(){
 pARef--;
 if(!pARef){
-delete pABit;
+delete pABit; //destructor should take care of deallocation
 pABit = 0;
 }
 }
 
+void ABitTile::loadSprite(int spriteBank, int width, int height, unsigned short* tilesrc, unsigned short* palsrc, int x, int y){
+
+
+}
 
 //Controlled by config flags in the FlashConfig API call
 void ABitTile::loadTiles(int size, unsigned char* src){
@@ -134,11 +202,13 @@ palcap = size;
 }
 
 
-void ABitTile::loadMap(int width, int height, unsigned short* src){ //TODO this will need width and height
-if(width > 256 || height > 256){
-return;
+void ABitTile::loadMap(int width, int height, unsigned short* src){ //TODO remove width and height base on bank
+//if(width > 256 || height > 256){
+//return;
+//}
+loadFMap8(p_map, (const unsigned short*)src); //Cur map bank
+
+
 }
-loadFMap8(p_map, (const unsigned short*)src); //This map points to layer 1 of
-//the screen
-}
+
 
