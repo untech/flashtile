@@ -75,7 +75,7 @@ int realcol = makecol15(r_red, r_green, r_blue);
 
 putpixel(tempbittile, k%8, (int)(k/8), realcol);
 }
-blit(tempbittile, tileset, 0, 0, (i*8)%(8*(TILEMEM/2)), ((i*8)/(8*(TILEMEM/2)))*8,8,8);
+blit(tempbittile, tileset, 0, 0,(i*8),0,8,8);
 }
 
 }
@@ -144,7 +144,8 @@ destroy_bitmap(Ttileset);
 destroy_bitmap(Tcurlayer);
 releaseFMap8(Tp_map);
 
-Ttileset = create_bitmap(8*(TILEMEM/2),8*(TILEMEM/2));
+//And change here too
+Ttileset = create_bitmap(8*(TILEMEM),8*(TILEMEM));
 Tcurlayer = create_bitmap(mapW*8,mapH*8);
 Tp_map = initFMap8(mapW, mapH);
 
@@ -168,7 +169,9 @@ tilebanks = new BITMAP* [4];
 layers = new BITMAP* [4]; 
 p_mapbank = new FMap8* [4];
 
-tileset = create_bitmap(8*(TILEMEM/2),8*(TILEMEM/2));
+
+//Change Dimensional Blit here here
+tileset = create_bitmap(8*(TILEMEM),8*(TILEMEM));
 curlayer = create_bitmap(mapW*8,mapH*8);
 p_map = initFMap8(mapW,mapH);
 
