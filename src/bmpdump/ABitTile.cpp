@@ -80,6 +80,7 @@ blit(tempbittile, tileset, 0, 0, (i*8)%(8*(TILEMEM/2)), ((i*8)/(8*(TILEMEM/2)))*
 
 }
 
+//TODO Remove dummy
 void ABitTile::Render(){
 this->showTiles(); //for debugging
 blit(backbuffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
@@ -88,10 +89,25 @@ blit(backbuffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 void ABitTile::showTiles(){
 blit(tileset, backbuffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 }
+//End dummy
 
 //flushes current banks map-tile correlation to bmp memory
 void ABitTile::FlushBank(){
+//go through every tile on the image
+//blit it
 
+//UGH someone find a way to unroll this in the future
+for(int i = 0; i < mapW; i++){
+for(int j = 0; j < mapH; j++){
+
+//TODO CHECK THE MATH!!!! (By hand we mean)
+//TODO Figure out math for SourceX and SourceY
+masked_blit(tileset, curlayer, 0, 0, i*8, j*8, 8, 8); //check math and compl.
+
+}
+}
+
+//finished blitting? Ready to put on the back buffer!
 
 }
 
@@ -102,9 +118,12 @@ if(bank < 0 || bank > 3) { return; } //safeguard
 tileset = tilebanks[bank];
 curlayer = layers[bank];
 p_map = p_mapbank[bank];
-
+mapH = p_map->height;
+mapW = p_map->width;
 }
 
+//Make sure a config is pushed before a bank is used
+//TODO: Make a lock that prevents memeory writes to non-configured banks
 //(Re)configures the engine stats 
 void ABitTile::PushConfig(PBITCAPS bitconfig){
 if(initbit == false){
