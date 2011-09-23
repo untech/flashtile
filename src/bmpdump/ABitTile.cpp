@@ -102,7 +102,7 @@ for(int j = 0; j < mapH; j++){
 
 //TODO CHECK THE MATH!!!! (By hand we mean)
 //TODO Figure out math for SourceX and SourceY
-masked_blit(tileset, curlayer, 0, 0, i*8, j*8, 8, 8); //check math and compl.
+blit(tileset, curlayer, 0, 0, i*8, j*8, 8, 8); //check math and compl.
 
 }
 }
