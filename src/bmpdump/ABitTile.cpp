@@ -96,7 +96,7 @@ void ABitTile::FlushBank(){
 //fix up, look sharp.
 int memElement = 0; //for locking the steps in the loop
 unsigned short tileid;
-
+int tilememcoord;
 //go through every tile on the image
 //blit it
 
@@ -104,25 +104,33 @@ unsigned short tileid;
 for(int i = 0; i < mapW; i++){
 for(int j = 0; j < mapH; j++){
 //retrieve tileID from the current map object in foreground mem
+//get map[]
 tileid = getFMapTID(memElement, p_map);
 
+//get the coordinate in memory
+tilememcoord = (0x3FF & tileid);
+
+//frankie told me to parse flipping bits
+int vflip = (0x800 & tileid);
+int hflip = (0x400 & tileid);
 /* tile id is parsed, perhaps optimize this routine? 
    Based on Nintendo Spec this is where hardware specifics come in 
    Perhaps scale reqs through the interface facade
 */
 
 
+
+
 //TODO CHECK THE MATH!!!! (By hand we mean)
 //TODO Figure out math for SourceX and SourceY
 
-//get map[]
 
-blit(tileset, curlayer, 0, 0 /*tilememXY */, i*8, j*8, 8, 8); //check math and compl.
+blit(tileset, curlayer, 0, 8*(/*id number*/0) /*tilememXY */, i*8, j*8, 8, 8); //check math and compl.
 
 }
 }
 
-//finished blitting? Ready to put on the back buffer!
+//finished blitting? Ready to put on the back buffer! (separate function)
 
 }
 
