@@ -32,9 +32,6 @@ class ABitTile: public IBitTile{
 	//init stuff
 	bool initbit;
 
-	//temp square for flipping
-	BITMAP* tmpmap;
-
 	//Tiles and maps and palette pointers
 
 	int curbank; //bank changing
