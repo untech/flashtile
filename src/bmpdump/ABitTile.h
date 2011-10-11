@@ -43,9 +43,9 @@ class ABitTile: public IBitTile{
 	int palcap;
 
 	//Allegro Specific GFX
-	FTile8** p_tile; //tile base memory
-	FMap8* p_map; //a map
-	FPal8* p_pal; //pal memory
+	FTile8** p_tile; //current tile base memory (flush load only)
+	FMap8* p_map; //current map in memory context for bank flush
+	FPal8* p_pal; //current pal memory for tile flush (flush load only)
 	
 	BITMAP *tileset; //first of many tileset memory banks
 	BITMAP *backbuffer; //for double buffering draw to this sucker
