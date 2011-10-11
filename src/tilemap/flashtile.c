@@ -55,6 +55,10 @@ ptiles = (FTile8*)malloc(sizeof(FTile8));
 return ptiles;
 }
 
+unsigned short getFMapTID(int element, FMap8* src){
+return (unsigned short)((*src).tiles[element]);
+}
+
 void releaseFTile8(FTile8* ftiles){
 free((*ftiles).pixels);
 (*ftiles).pixels = NULL;

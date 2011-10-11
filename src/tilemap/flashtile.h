@@ -58,6 +58,6 @@ void releaseFMap8(FMap8* map);
 void loadFPal8(const unsigned short* src, FPal8* dst);
 FMap8* initFMap8(int width, int height); //TODO perhaps width and height?
 void loadFMap8(FMap8* dst, const unsigned short* src);
- 
+unsigned short getFMapTID(int element, FMap8* src); //Interface into the map "objects"
 #endif
 
