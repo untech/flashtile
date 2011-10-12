@@ -95,8 +95,11 @@ blit(tileset, backbuffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 void ABitTile::FlushBank(){
 //fix up, look sharp.
 int memElement = 0; //for locking the steps in the loop
+bool flipbit = false;
 unsigned short tileid;
 int tilememcoord;
+BITMAP* tmpmap = create_bitmap(8,8);
+BITMAP* flipmap = create_bitmap(8,8);
 //go through every tile on the image
 //blit it
 
@@ -118,14 +121,36 @@ int hflip = (0x400 & tileid);
    Perhaps scale reqs through the interface facade
 */
 
+if(vflip || hflip){
+flipbit = true;
+//copy to tmp buffer
+blit(tileset, tmpmap, 0, 8*(tilememcoord), 0, 0, 8, 8);
+}
 
+//flip the tile vertically and put in tmp space
+if(vflip){
+//flip it
+draw_sprite_v_flip(flipmap, tmpmap, 0, 0);
+//then copy back
+blit(flipmap, tmpmap, 0, 0, 0, 0, 8, 8);
+}
 
+//flip the tile horizontally and put in tmp space
+if(hflip){
+draw_sprite_h_flip(flipmap, tmpmap, 0, 0);
+blit(flipmap, tmpmap, 0, 0, 0, 0, 8, 8);
+}
 
-//TODO CHECK THE MATH!!!! (By hand we mean)
-//TODO Figure out math for SourceX and SourceY
+//if the tile is flipped
+if(flipbit){
+blit(tmpmap, curlayer, 0, 0, i*8, j*8, 8, 8);
+}
 
-
+//if the tile is not flipped
+if(!flipbit){
 blit(tileset, curlayer, 0, 8*(/*id number*/0) /*tilememXY */, i*8, j*8, 8, 8); //check math and compl.
+}
+flipbit = false; //no matter what flipbit is reset after each tile copies
 
 }
 }
