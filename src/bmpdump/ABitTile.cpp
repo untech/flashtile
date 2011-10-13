@@ -75,14 +75,17 @@ int realcol = makecol15(r_red, r_green, r_blue);
 
 putpixel(tempbittile, k%8, (int)(k/8), realcol);
 }
-blit(tempbittile, tileset, 0, 0,(i*8),0,8,8);
+blit(tempbittile, tileset, 0, 0,0,(i*8),8,8);
 }
 
 }
 
 //TODO Remove dummy
 void ABitTile::Render(){
-this->showTiles(); //for debugging
+//this->showTiles(); //for debugging
+
+blit(curlayer, backbuffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
 blit(backbuffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 }
 
@@ -104,8 +107,8 @@ BITMAP* flipmap = create_bitmap(8,8);
 //blit it
 
 //UGH someone find a way to unroll this in the future
-for(int i = 0; i < mapW; i++){
-for(int j = 0; j < mapH; j++){
+for(int i = 0; i < mapH; i++){
+for(int j = 0; j < mapW; j++){
 //retrieve tileID from the current map object in foreground mem
 //get map[]
 tileid = getFMapTID(memElement, p_map);
@@ -143,21 +146,22 @@ blit(flipmap, tmpmap, 0, 0, 0, 0, 8, 8);
 
 //if the tile is flipped
 if(flipbit){
-blit(tmpmap, curlayer, 0, 0, i*8, j*8, 8, 8);
+blit(tmpmap, curlayer, 0, 0, j*8, i*8, 8, 8);
 }
 
 //if the tile is not flipped
 if(!flipbit){
-blit(tileset, curlayer, 0, 8*(/*id number*/0) /*tilememXY */, i*8, j*8, 8, 8); //check math and compl.
+blit(tileset, curlayer, 0, 8*tilememcoord /*tilememXY */, j*8, i*8, 8, 8); //check math and compl.
 }
 flipbit = false; //no matter what flipbit is reset after each tile copies
-
+memElement += 1;
 }
 }
 
 //finished blitting? Ready to put on the back buffer! (separate function)
 
 }
+
 
 //brings a bank to the foreground
 void ABitTile::ChangeBanks(int bank){
@@ -193,7 +197,7 @@ destroy_bitmap(Tcurlayer);
 releaseFMap8(Tp_map);
 
 //And change here too
-Ttileset = create_bitmap(8*(TILEMEM),8*(TILEMEM));
+Ttileset = create_bitmap(8,8*(TILEMEM));
 Tcurlayer = create_bitmap(mapW*8,mapH*8);
 Tp_map = initFMap8(mapW, mapH);
 
@@ -219,7 +223,7 @@ p_mapbank = new FMap8* [4];
 
 
 //Change Dimensional Blit here here
-tileset = create_bitmap(8*(TILEMEM),8*(TILEMEM));
+tileset = create_bitmap(8,8*(TILEMEM));
 curlayer = create_bitmap(mapW*8,mapH*8);
 p_map = initFMap8(mapW,mapH);
 
