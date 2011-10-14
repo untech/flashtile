@@ -10,6 +10,18 @@
 
 //This structure feeds into the configuration manager
 
+//define flags here
+
+//defines make it so when additions made modularity is maintained
+#define RENDER_0 (1 << 0)
+#define RENDER_1 (1 << 1)
+#define RENDER_2 (1 << 2)
+#define RENDER_3 (1 << 3)
+
+typedef struct RENDERPARAMS{
+int something;
+}something;
+
 typedef struct BITCAPS{
 int screen_w;
 int screen_h;
