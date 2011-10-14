@@ -79,6 +79,14 @@ blit(tempbittile, tileset, 0, 0,0,(i*8),8,8);
 }
 
 }
+void ABitTile::SetRenderFlags(int flags){
+
+
+}
+
+void ABitTile::SetRenderParams(PRPARAMS params){
+
+}
 
 //TODO Remove dummy
 void ABitTile::Render(){

@@ -21,6 +21,8 @@ class ABitTile: public IBitTile{
 	virtual void Release();
 	virtual void Flush();
 	virtual void FlushBank();
+	virtual void SetRenderFlags(int flags);
+	virtual void SetRenderParams(PRPARAMS params);
 	virtual void Render();
 	virtual void PushConfig(PBITCAPS bitconfig);
 

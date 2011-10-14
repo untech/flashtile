@@ -19,8 +19,9 @@
 #define RENDER_3 (1 << 3)
 
 typedef struct RENDERPARAMS{
-int something;
-}something;
+int screenX;
+int screenY;
+}*PRPARAMS;
 
 typedef struct BITCAPS{
 int screen_w;
@@ -47,14 +48,12 @@ class IBitTile
 	virtual void Release() = 0;
 	virtual void Flush() = 0;
 	virtual void FlushBank() = 0;
+	virtual void SetRenderFlags(int flags) = 0;
+	virtual void SetRenderParams(PRPARAMS params) = 0;
 	virtual void Render() = 0;
 	virtual void PushConfig(PBITCAPS bitconfig) = 0;
 	virtual void Init() = 0;
 };
 
 extern IBitTile* createAxBitTile();
-
-
-
-
 
