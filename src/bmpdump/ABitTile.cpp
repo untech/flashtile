@@ -15,6 +15,7 @@
 
 #define BGMEM 4
 #define TILEMEM 128
+#define SPRITEMEM 128
 
 #include "ABitTile.h"
 
@@ -237,6 +238,11 @@ p_mapbank[bitconfig->membank] = Tp_map;
 
 }
 
+void ABitTile::ConfigSprite(int spriteBank, int x, int y){
+spriteXs[spriteBank] = x;
+spriteYs[spriteBank] = y;
+}
+
 //Make sure engine is configured before initialising the engine
 void ABitTile::Init(){
 allegro_init();
@@ -265,6 +271,12 @@ initbit = true;
 //layer1 = create_bitmap(mapW*8,mapH*8);
 //finish up the base init after first config is pushed
 
+//defining sprite refs here seems okay...probably will need
+//someone to come in and do some tweaking
+spriteXs = new int[SPRITEMEM];
+spriteYs = new int[SPRITEMEM];
+spriterefs = new BITMAP* [SPRITEMEM];
+
 }
 
 void ABitTile::Release(){
@@ -276,6 +288,9 @@ pABit = 0;
 }
 
 void ABitTile::loadSprite(int spriteBank, int width, int height, unsigned short* tilesrc, unsigned short* palsrc, int x, int y){
+
+
+spritrefs[spriteBank] = create_bitmap(width, height); 
 
 
 }

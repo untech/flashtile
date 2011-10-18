@@ -43,6 +43,7 @@ class IBitTile
 	virtual void loadTiles(int size, unsigned char* src) = 0; 
 	virtual void loadMap(int width, int height, unsigned short* src) = 0;
 	virtual void loadPal(int size, unsigned short* src) = 0;
+	virtual void ConfigSprite(int spriteBank, int x, int y) = 0;
 	virtual void loadSprite(int spriteBank, int width, int height, unsigned short* tilesrc, unsigned short* palsrc, int x, int y) = 0;
 	virtual void ChangeBanks(int bank) = 0;
 	virtual void Release() = 0;
