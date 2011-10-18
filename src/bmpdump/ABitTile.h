@@ -59,7 +59,11 @@ class ABitTile: public IBitTile{
 	//A map will be drawn to the bitmaps during a flush call
 	//Afterwards the surfaces must be blitted to be rendered to the display
 
-	int screenX, screenY; //used for clipping
+	//render control formally known as "clipping"
+	int r_bits;
+	PRPARAMS r_config;
+
+//	int screenX, screenY; //used for clipping
 	int screenW, screenH;
 
 	int mapW, mapH; //for map configuration within the system

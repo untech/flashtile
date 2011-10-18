@@ -13,6 +13,7 @@
 //Allegro is the sandbox platform. And changes will like cascade from this
 //platform, using the NDS as an ideal.
 
+#define BGMEM 4
 #define TILEMEM 128
 
 #include "ABitTile.h"
@@ -41,7 +42,8 @@ ABitTile::ABitTile(){
 initbit = false;
 tilecap = 0; //current load of the first pool
 palcap = 0;
-
+r_config = 0;
+r_bits = 0;
 
 //Base memory instantiation
 //Flash Memory Pool/Memory "Bank"
@@ -79,22 +81,40 @@ blit(tempbittile, tileset, 0, 0,0,(i*8),8,8);
 }
 
 }
+
 void ABitTile::SetRenderFlags(int flags){
-
-
+r_bits = flags;
 }
 
 void ABitTile::SetRenderParams(PRPARAMS params){
-
+r_config = params;
 }
 
 //TODO Remove dummy
 void ABitTile::Render(){
-//this->showTiles(); //for debugging
 
-blit(curlayer, backbuffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+if(r_bits & RENDER_0){
+this->ChangeBanks(0);
+blit(curlayer, backbuffer, (*r_config).screenX, (*r_config).screenY, 0, 0, SCREEN_W, SCREEN_H);
+}
+
+if(r_bits & RENDER_1){
+this->ChangeBanks(1);
+blit(curlayer, backbuffer, (*r_config).screenX, (*r_config).screenY, 0, 0, SCREEN_W, SCREEN_H);
+}
+
+if(r_bits & RENDER_2){
+this->ChangeBanks(2);
+blit(curlayer, backbuffer, (*r_config).screenX, (*r_config).screenY, 0, 0, SCREEN_W, SCREEN_H);
+}
+
+if(r_bits & RENDER_3){
+this->ChangeBanks(3);
+blit(curlayer, backbuffer, (*r_config).screenX, (*r_config).screenY, 0, 0, SCREEN_W, SCREEN_H);
+}
 
 blit(backbuffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
 }
 
 void ABitTile::showTiles(){
