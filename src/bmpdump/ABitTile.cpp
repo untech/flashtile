@@ -290,7 +290,7 @@ pABit = 0;
 void ABitTile::loadSprite(int spriteBank, int width, int height, unsigned short* tilesrc, unsigned short* palsrc, int x, int y){
 
 
-spritrefs[spriteBank] = create_bitmap(width, height); 
+spriterefs[spriteBank] = create_bitmap(width, height); 
 
 
 }
