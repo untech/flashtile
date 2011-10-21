@@ -18,6 +18,7 @@
 #define SPRITEMEM 128
 
 #include "ABitTile.h"
+#include <stdio.h>
 
 ABitTile* pABit = 0;
 int pARef = 0;
@@ -112,6 +113,20 @@ blit(curlayer, backbuffer, (*r_config).screenX, (*r_config).screenY, 0, 0, SCREE
 if(r_bits & RENDER_3){
 this->ChangeBanks(3);
 blit(curlayer, backbuffer, (*r_config).screenX, (*r_config).screenY, 0, 0, SCREEN_W, SCREEN_H);
+}
+
+//Sprite rendering here
+for(int i = 0; i < SPRITEMEM; i++){
+
+if(displayed[i] == true){
+masked_blit(spriterefs[i], backbuffer, 0, 0, spriteXs[i], spriteYs[i], spriteWs[i], spriteHs[i]);
+
+//for debugging
+//int colcol = bitmap_mask_color(spriterefs[i]);
+//int comething = 0;
+
+}
+
 }
 
 blit(backbuffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
@@ -238,9 +253,10 @@ p_mapbank[bitconfig->membank] = Tp_map;
 
 }
 
-void ABitTile::ConfigSprite(int spriteBank, int x, int y){
+void ABitTile::ConfigSprite(int spriteBank, int x, int y, bool visible){
 spriteXs[spriteBank] = x;
 spriteYs[spriteBank] = y;
+displayed[spriteBank] = visible;
 }
 
 //Make sure engine is configured before initialising the engine
@@ -276,7 +292,12 @@ initbit = true;
 spriteXs = new int[SPRITEMEM];
 spriteYs = new int[SPRITEMEM];
 spriterefs = new BITMAP* [SPRITEMEM];
-
+spriteWs = new int[SPRITEMEM];
+spriteHs = new int[SPRITEMEM];
+displayed = new bool[SPRITEMEM];
+for(int i = 0; i < SPRITEMEM; i++){
+displayed[i] = false;
+}
 }
 
 void ABitTile::Release(){
@@ -287,11 +308,61 @@ pABit = 0;
 }
 }
 
-void ABitTile::loadSprite(int spriteBank, int width, int height, unsigned short* tilesrc, unsigned short* palsrc, int x, int y){
+void ABitTile::loadSprite(int spriteBank, int width, int height, unsigned char* tilesrc, unsigned short* palsrc, int x, int y){
+//check dimensions //kind of a catch all
+if((width % 8) != 0 || (height % 8) != 0)
+return;
 
+spriteXs[spriteBank] = x;
+spriteYs[spriteBank] = y;
+spriteWs[spriteBank] = width;
+spriteHs[spriteBank] = height;
+displayed[spriteBank] = true;
+
+//temp tile pool, remember to dealloc with delete /w pal
+FTile8** tmptiles = new FTile8* [(width/8)*(height/8)];
+FPal8* tmppal = initFPal8(BITWIDTH_16, PALS_256);
+
+//create some tiles
+for(int i = 0; i < ((width/8)*(height/8)); i++){
+tmptiles[i] = initFTile8();
+}
+
+//load up the tiles with the resource for this sprite
+for(int i = 0; i < ((width/8)*(height/8)); i++){
+loadFTile8((const unsigned char*)(&tilesrc[i*64]), tmptiles[i]);
+}
+loadFPal8((const unsigned short*)palsrc, tmppal);
 
 spriterefs[spriteBank] = create_bitmap(width, height); 
 
+//render all the tiles
+BITMAP* tmpspritetile = create_bitmap(8,8);
+
+for(int i = 0; i < ((width/8)*(height/8)); i++){
+
+for(int k = 0; k < 64; k++){
+int px = (*(tmptiles[i])).pixels[k];
+int rawcol = (*tmppal).colors[px];
+int r_red = (31 & rawcol)*8;
+int r_green = (((31 << 5) & rawcol) >> 5)*8;
+int r_blue = (((31 << 10) & rawcol) >> 10)*8;
+int realcol = makecol15(r_red, r_green, r_blue);
+
+putpixel(tmpspritetile, k%8, (int)(k/8), realcol);
+}
+
+//peculiar blit function, flushes tile to right part of sprite
+blit(tmpspritetile, spriterefs[spriteBank], 0, 0, (i%(width/8))*8, ((int)(i/(width/8)))*8, 8, 8);
+
+}
+
+//cleanup
+for(int i = 0; i < ((width/8)*(height/8)); i++){
+releaseFTile8(tmptiles[i]);
+}
+releaseFPal8(tmppal);
+delete tmptiles;
 
 }
 

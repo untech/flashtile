@@ -15,8 +15,8 @@ class ABitTile: public IBitTile{
         virtual void loadTiles(int size, unsigned char* src);
         virtual void loadPal(int size, unsigned short* src);
         virtual void loadMap(int width, int height, unsigned short* src);
-	virtual void loadSprite(int spriteBank, int width, int height, unsigned short* tilesrc, unsigned short* palsrc, int x, int y);
-	virtual void ConfigSprite(int spriteBank, int x, int y);
+	virtual void loadSprite(int spriteBank, int width, int height, unsigned char* tilesrc, unsigned short* palsrc, int x, int y);
+	virtual void ConfigSprite(int spriteBank, int x, int y, bool visible);
 	virtual void ChangeBanks(int bank);
 	virtual void Init();
 	virtual void Release();
@@ -59,9 +59,10 @@ class ABitTile: public IBitTile{
 	//Sprite Stuff (Oh my, how random...)
 	BITMAP** spriterefs; //reference to sprite objects
 	int* spriteXs; 
-	int* spriteYs; //self explanagotry; self refactoring perhaps?
-
-
+	int* spriteYs; //self explanatory; self refactoring perhaps?
+	int* spriteWs;
+	int* spriteHs;
+	bool* displayed; 
 
 	//A map will be drawn to the bitmaps during a flush call
 	//Afterwards the surfaces must be blitted to be rendered to the display
