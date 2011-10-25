@@ -20,15 +20,17 @@ virtual void pushToQueue() = 0;
 virtual void dumpQueue() = 0;
 
 //Controller aggregation and assignment
-virtual void addController() = 0;
-virtual void removeController() = 0;
+virtual int addController() = 0;
+virtual void removeController(int ) = 0;
 
 //the two master controllers
 virtual void assignRender(int (*renderFunc)(void)) = 0;
 virtual void assignFrame(int (*frameFunc)(void)) = 0;
 
 //hillside
-virtual void assignControlToEvent(int (*controlCallback)(void)) = 0;
+virtual void assignControlToEvent(EVENT Type, int bank) = 0;
+
+
 
 };
 
