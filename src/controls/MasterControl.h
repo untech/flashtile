@@ -13,6 +13,10 @@
 #ifndef MASTERCONTROL_H
 #define MASTERCONTROL_H
 
+
+ #include "IController.h"
+ #include "IEvent.h"
+ 
 class MasterControl{
 //Queue control
 virtual void pumpQueue() = 0;
@@ -20,16 +24,16 @@ virtual void pushToQueue() = 0;
 virtual void dumpQueue() = 0;
 
 //Controller aggregation and assignment
-virtual int addController() = 0;
-virtual void removeController(int ) = 0;
+virtual int addController(BaseController* controller) = 0;
+virtual void removeController(int iD) = 0;
 
 //the two master controllers
 virtual void assignRender(int (*renderFunc)(void)) = 0;
 virtual void assignFrame(int (*frameFunc)(void)) = 0;
 
 //hillside
-virtual void assignControlToEvent(EVENT Type, int bank) = 0;
-
+virtual void registerController(BaseEvent* event, int iD) = 0;
+virtual void unregisterController(int iD) = 0;
 
 
 };

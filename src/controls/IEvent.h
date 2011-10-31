@@ -6,6 +6,10 @@
 //Class auto-generation
 
 class BaseEvent{
+public:
+virtual void getSubID();
 
+private:
+static int subID;
 
-}
+};
