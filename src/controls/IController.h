@@ -5,10 +5,10 @@
 class BaseController{
 public:
 
-virtual void dispatchEvent(); //dispatches the event using controller
+virtual void dispatchEvent() = 0; //dispatches the event using controller
 
 private:
-virtual void Setup();
-virtual void Execute(); 
+virtual void Setup() = 0;
+virtual void Execute() = 0; 
 
 };

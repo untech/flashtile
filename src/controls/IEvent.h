@@ -7,9 +7,9 @@
 
 class BaseEvent{
 public:
-virtual void getSubID();
+virtual void getSubID() = 0;
 
 private:
-static int subID;
+static int subID = 0;
 
 };
