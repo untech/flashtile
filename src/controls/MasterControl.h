@@ -16,6 +16,7 @@
 
  #include "IController.h"
  #include "IEvent.h"
+ #include "RegistryEntry.h"
  
 class MasterControl{
 //Queue control
