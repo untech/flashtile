@@ -4,6 +4,7 @@
 //and aggregate mini-kernel. Place extensions here if needed.
 
 #include <vector.h>
+#include "MasterControl.h"
 
 class MasterControlImpl: public MasterControl{
 public:
