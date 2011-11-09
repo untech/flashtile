@@ -39,4 +39,6 @@ virtual void unregisterController(int iD) = 0;
 
 };
 
+extern *MasterControl createMiniKernel();
+
 #endif
