@@ -13,5 +13,5 @@ private:
 virtual void Setup() = 0;
 virtual void Execute() = 0; 
 
-static int subID = 0;
+static int subID;
 };

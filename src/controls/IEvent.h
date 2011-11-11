@@ -10,6 +10,6 @@ public:
 virtual void getSubID() = 0;
 
 private:
-static int subID = 0;
+static int subID;
 
 };

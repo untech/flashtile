@@ -19,6 +19,7 @@
  #include "RegistryEntry.h"
  
 class MasterControl{
+public:
 //Queue control
 virtual void pumpQueue() = 0;
 virtual void pushToQueue() = 0;
@@ -39,6 +40,6 @@ virtual void unregisterController(int iD) = 0;
 
 };
 
-extern *MasterControl createMiniKernel();
+extern MasterControl* createMiniKernel();
 
 #endif

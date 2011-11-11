@@ -9,7 +9,7 @@ int getControlID();
 int getEventID();
 
 private:
-static int controlID = 0;
-static int eventID = 0;
+static int controlID;
+static int eventID;
 
-}
+};

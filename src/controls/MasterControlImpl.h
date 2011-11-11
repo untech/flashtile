@@ -2,8 +2,10 @@
 //Author: Stevie
 //Description: Use this class as the main implementation of the master control
 //and aggregate mini-kernel. Place extensions here if needed.
+#ifndef MASTERCONTROLIMPL_H_
+#define MASTERCONTROLIMPL_H_
 
-#include <vector.h>
+#include <vector>
 #include "MasterControl.h"
 
 class MasterControlImpl: public MasterControl{
@@ -29,6 +31,8 @@ private:
 std::vector<BaseEvent*> eventQueue;
 
 std::vector<BaseController*> controllerRegistry;
-std::vector<RegistryEntry> indexRegistry;
+std::vector<RegistryEntry*> indexRegistry;
 
 };
+
+#endif
