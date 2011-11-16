@@ -9,13 +9,18 @@ BaseEvent* t_evntPtr = eventQueue.back();
 eventQueue.pop_back();
 
 //compare to registry and find controller
-
+int tempID = t_evntPtr->getSubID();
+//get controller from memory
 
 }
+
+
 
 void MasterControlImpl::pushToQueue(BaseEvent* event){
 std::vector<BaseEvent*>::iterator t_it = eventQueue.begin();
 eventQueue.insert(t_it, event);
 }
 
+void MasterControlImpl::addController(){
 
+}
