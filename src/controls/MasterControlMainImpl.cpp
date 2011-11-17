@@ -3,6 +3,17 @@
 
 //definitions go here
 
+//TODO: Fuck I just realized I'm going to need a search function
+//to search the registry index. This will be interalized in the 
+//implementation
+
+void MasterControlImpl::addController(BaseController* controller){
+  //create new registry entry and assign it a controller
+  RegistryEntry* regEntry = new RegistryEntry(controller->getSubID(),0);
+  std::vector<RegistryEntry*>::iterator r_it = indexRegistry.begin();
+  indexRegistry.insert(r_it, regEntry);
+}
+
 void MasterControlImpl::pumpQueue(){
 //get top list element
 BaseEvent* t_evntPtr = eventQueue.back();
