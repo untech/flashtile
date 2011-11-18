@@ -7,7 +7,7 @@
 
 class BaseEvent{
 public:
-virtual void getSubID() = 0;
+virtual int getSubID() = 0;
 
 private:
 static int subID;
