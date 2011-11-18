@@ -1,7 +1,23 @@
 #include "MasterControlImpl.h"
 
+//This is for reference counting
+MasterControlImpl* pICtl = 0;
+int pIRef = 0;
 
 //definitions go here
+
+//TODO: Fuck I just realized I'm going to need a search function
+//to search the registry index. This will be interalized in the 
+//implementation
+
+void MasterControlImpl::addController(BaseController* controller){
+//create new registry entry and assign it a controller
+RegistryEntry* regEntry = new RegistryEntry(controller->getSubID(),0);
+std::vector<RegistryEntry*>::iterator r_it = indexRegistry.begin();
+indexRegistry.insert(r_it, regEntry);
+
+
+}
 
 void MasterControlImpl::pumpQueue(){
 //get top list element
@@ -15,12 +31,24 @@ int tempID = t_evntPtr->getSubID();
 }
 
 
-
 void MasterControlImpl::pushToQueue(BaseEvent* event){
 std::vector<BaseEvent*>::iterator t_it = eventQueue.begin();
 eventQueue.insert(t_it, event);
 }
 
-void MasterControlImpl::addController(){
+MasterControl* createMiniKernel(){
+return (MasterControl*)MasterControlImpl::InterfaceGet;
+}
+
+MasterControlImpl* MasterControlImpl::InterfaceGet(){
+if(!pICtl)
+pICtl = new MasterControlImpl();
+
+pIRef++;
+return pICtl;
+}
+
+MasterControlImpl::MasterControlImpl(){
+
 
 }

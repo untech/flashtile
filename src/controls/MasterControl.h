@@ -22,11 +22,11 @@ class MasterControl{
 public:
 //Queue control
 virtual void pumpQueue() = 0;
-virtual void pushToQueue() = 0;
+virtual void pushToQueue(BaseEvent* event) = 0;
 virtual void dumpQueue() = 0;
 
 //Controller aggregation and assignment
-virtual int addController(BaseController* controller) = 0;
+virtual void addController(BaseController* controller) = 0;
 virtual void removeController(int iD) = 0;
 
 //the two master controllers
