@@ -1,5 +1,8 @@
 #include "MasterControlImpl.h"
 
+//This is for reference counting
+MasterControlImpl* pICtl = 0;
+int pIRef = 0;
 
 //definitions go here
 
@@ -8,10 +11,12 @@
 //implementation
 
 void MasterControlImpl::addController(BaseController* controller){
-  //create new registry entry and assign it a controller
-  RegistryEntry* regEntry = new RegistryEntry(controller->getSubID(),0);
-  std::vector<RegistryEntry*>::iterator r_it = indexRegistry.begin();
-  indexRegistry.insert(r_it, regEntry);
+//create new registry entry and assign it a controller
+RegistryEntry* regEntry = new RegistryEntry(controller->getSubID(),0);
+std::vector<RegistryEntry*>::iterator r_it = indexRegistry.begin();
+indexRegistry.insert(r_it, regEntry);
+
+
 }
 
 void MasterControlImpl::pumpQueue(){
@@ -29,4 +34,19 @@ std::vector<BaseEvent*>::iterator t_it = eventQueue.begin();
 eventQueue.insert(t_it, event);
 }
 
+MasterControl* createMiniKernel(){
+return (MasterControl*)MasterControlImpl::InterfaceGet;
+}
+
+MasterControlImpl* MasterControlImpl::InterfaceGet(){
+if(!pICtl)
+pICtl = new MasterControlImpl();
+
+pIRef++;
+return pICtl;
+}
+
+MasterControlImpl::MasterControlImpl(){
+
+}
 
