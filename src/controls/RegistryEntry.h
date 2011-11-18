@@ -8,6 +8,8 @@ RegistryEntry(int controlID, int eventID);
 int getControlID();
 int getEventID();
 
+void setEventID(int subID);
+
 private:
 static int controlID;
 static int eventID;

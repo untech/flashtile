@@ -48,6 +48,18 @@ pIRef++;
 return pICtl;
 }
 
+
+int MasterControlImpl::SearchIndex(int subID){
+//dummy placement
+int index = -1;
+//start pseudo code
+for(size of the vector){
+//pull out element and check for subID
+}
+
+return index;
+}
+
 MasterControlImpl::MasterControlImpl(){
 
 
