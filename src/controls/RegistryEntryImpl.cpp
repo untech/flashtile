@@ -5,14 +5,14 @@ this->eventID = eventID;
 this->controlID = controlID;
 }
 
-int getControlID(){
+int RegistryEntry::getControlID(){
 return controlID;
 }
 
-int getEventID(){
+int RegistryEntry::getEventID(){
 return eventID;
 }
 
-void setEventID(int subID){
+void RegistryEntry::setEventID(int subID){
 this->eventID = subID;
 }
