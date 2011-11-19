@@ -37,7 +37,8 @@ virtual void assignFrame(int (*frameFunc)(void)) = 0;
 virtual void registerController(BaseEvent* event, int iD) = 0;
 virtual void unregisterController(int iD) = 0;
 
-
+//instantiation control
+virtual void Release() = 0;
 };
 
 extern MasterControl* createMiniKernel();

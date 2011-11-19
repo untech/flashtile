@@ -53,11 +53,20 @@ int MasterControlImpl::SearchIndex(int subID){
 //dummy placement
 int index = -1;
 //start pseudo code
-for(size of the vector){
+//for(size of the vector){
 //pull out element and check for subID
+//}
+return index;
 }
 
-return index;
+void MasterControlImpl::Release(){
+pIRef--;
+
+if(!pICtl){
+delete pICtl;
+pIRef = 0;
+}
+
 }
 
 MasterControlImpl::MasterControlImpl(){

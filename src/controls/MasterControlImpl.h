@@ -28,6 +28,10 @@ virtual void assignFrame(int (*frameFunc)(void));
 virtual void registerController(BaseEvent* event, int iD);
 virtual void unregisterController(int iD);
 
+virtual void Release();
+
+int SearchIndex(int ID);
+
 //public for external interface instantiation 
 static MasterControlImpl* InterfaceGet();
 
