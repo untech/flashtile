@@ -1,7 +1,7 @@
 //Allegro Implementation Facade of ABitTile 
 
 #include "BitTile.h"
-#include "allegro.h"
+#include <allegro.h>
 
 //After background basics are written
 //TODO Sprite Control
